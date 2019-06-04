@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <img
+    src="assets/imgs/logo.png"
+    alt="Logo do MedJobs">
+
+    <div>
+
+      <p>Faça login para acessar MedJobs.</p>
+
+      <form
+        [formGroup]="form"
+        (ngSubmit)="logIn()">
+        <ion-list>
+            <ion-item margin-bottom>
+               <ion-label>E-mail</ion-label>
+               <ion-input
+                  type="email"
+                  formControlName="email"></ion-input>
+            </ion-item>
+
+
+            <ion-item margin-bottom>
+               <ion-label>Senha</ion-label>
+               <ion-input
+                  type="password"
+                  formControlName="senha"></ion-input>
+            </ion-item>
+
+
+            <button
+               ion-button
+               color="primary"
+               text-center
+               block [disabled]="!form.valid">Logar</button>
+         </ion-list>
+      </form>
+
+   </div>
+
+</ion-content>
