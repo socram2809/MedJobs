@@ -8,12 +8,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { UsuarioPage } from '../pages/usuario/usuario';
 
 import { AuthProvider } from '../providers/auth/auth';
 
 //Importa arquivo de configuração do Firebase e o inicializa
 import * as firebase from 'firebase'
 import {environment} from '../environments/environment'
+import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
 
 firebase.initializeApp(environment.firebase);
 
@@ -21,7 +23,8 @@ firebase.initializeApp(environment.firebase);
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    UsuarioPage
   ],
   imports: [
     BrowserModule,
@@ -32,13 +35,15 @@ firebase.initializeApp(environment.firebase);
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    UsuarioPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    UsuarioServiceProvider
   ]
 })
 export class AppModule {}

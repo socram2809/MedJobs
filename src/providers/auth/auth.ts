@@ -53,7 +53,6 @@ export class AuthProvider {
       });
    }
 
-
   /**
     * Desloga com o método signOut da API Web do Firebase
     *
@@ -75,6 +74,32 @@ export class AuthProvider {
         {
            reject(error);
         });
+      });
+   }
+
+   /**
+    * Usa o método createUserWithEmailAndPassword da API Web do Firebase
+    * para criar novo usuário
+    *
+    * @method criaNovoUsuario
+    * @param email    {string}      Endereço de e-mail do usuário
+    * @param password {string}      Senha da conta do usuário
+    * @return {Promise}
+    */
+   criaNovoUsuario(email: string, password: string) : Promise<any> {
+      return new Promise((resolve, reject) =>
+      {
+         firebase
+         .auth()
+         .createUserWithEmailAndPassword(email, password)
+         .then((val : any) =>
+         {
+            resolve(val);
+         })
+         .catch((error : any) =>
+         {
+            reject(error);
+         });
       });
    }
 

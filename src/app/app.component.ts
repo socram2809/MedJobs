@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Alert, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -22,9 +22,12 @@ export class MyApp {
   /**
    * Define as páginas para a aplicação
    */
-  private pages: Array<{title: string, component: any}>;
+  public pages: Array<{title: string, component: any}>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private _AUTH: AuthProvider) {
+  private _alerta: Alert;
+
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private _AUTH: AuthProvider,
+              private _alertCtrl: AlertController) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,37 +38,41 @@ export class MyApp {
     // Popula páginas para a aplicação
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Logout', component: LoginPage }
+      { title: 'Sair', component: LoginPage }
     ];
   }
 
   /**
-    * Abre uma página do menu lateral
-    * @method openPage
-    * @param page   {object} O nome do componente de página para abrir
-    * return {none}
-    */
-   openPage(page : any) : void
-   {
-      // Garante que nós podemos deslogar do Forebase e resetar a página raiz
-      if(page == 'Logout')
-      {
-         this._AUTH.logOut()
-         .then((data : any) =>
-         {
-            this.nav.setRoot(page.component);
-         })
-         .catch((error : any) =>
-         {
-            console.dir(error);
-         });
-      }
+  * Abre uma página do menu lateral
+  * @method openPage
+  * @param page   {object} O nome do componente de página para abrir
+  * return {none}
+  */
+  openPage(page : any) : void {
+    this._alerta = this._alertCtrl.create({
+      title: 'Aviso',
+      buttons: [
+        { text: 'OK'}
+      ]
+    });
 
-      // Caso contrário, reseta o conteúdo da navegação para ter somente esta página
-      // Nós não queremos o botão de voltar apareça nesse cenário
-      else
+    // Garante que nós podemos deslogar do Firebase e resetar a página raiz
+    if(page == 'Sair') {
+      this._AUTH.logOut()
+      .then((data : any) =>
       {
-         this.nav.setRoot(page.component);
-      }
-   }
+        this.nav.setRoot(page.component);
+      })
+      .catch((error : any) =>
+      {
+        this._alerta.setSubTitle('Erro ao deslogar!');
+        this._alerta.present();
+      });
+    }
+    // Caso contrário, reseta o conteúdo da navegação para ter somente esta página
+    // Nós não queremos o botão de voltar apareça nesse cenário
+    else {
+      this.nav.setRoot(page.component);
+    }
+  }
 }
