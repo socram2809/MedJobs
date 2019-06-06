@@ -3,10 +3,12 @@ import { Nav, Platform, Alert, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-//Importa componentes de página e o provedor de autenticação
+//Serviços
+import { AuthProvider } from '../providers/auth/auth';
+
+//Páginas
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
-import { AuthProvider } from '../providers/auth/auth';
 
 @Component({
   templateUrl: 'app.html'

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,7 +10,7 @@ export class AuthProvider {
 
   public user : Observable<any>;
 
-  constructor(public http: Http) {
+  constructor(private _http: HttpClient) {
     firebase.auth().onAuthStateChanged((user) =>
       {
         if (user)
@@ -35,8 +35,7 @@ export class AuthProvider {
     * @param password {string}      Senha da conta do usuário
     * @return {Promise}
     */
-   loginWithEmailAndPassword(email     : string, password  : string) : Promise<any>
-   {
+   loginWithEmailAndPassword(email: string, password  : string) : Promise<any> {
       return new Promise((resolve, reject) =>
       {
          firebase

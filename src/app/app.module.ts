@@ -1,22 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+//Serviços
+import { AuthProvider } from '../providers/auth/auth';
+import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
+import { OportunidadeServiceProvider } from '../providers/oportunidade-service/oportunidade-service';
+
+//Páginas
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { UsuarioPage } from '../pages/usuario/usuario';
 
-import { AuthProvider } from '../providers/auth/auth';
-
-//Importa arquivo de configuração do Firebase e o inicializa
+//Firebase
 import * as firebase from 'firebase'
 import {environment} from '../environments/environment'
-import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
-
 firebase.initializeApp(environment.firebase);
 
 @NgModule({
@@ -28,7 +30,7 @@ firebase.initializeApp(environment.firebase);
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -43,7 +45,8 @@ firebase.initializeApp(environment.firebase);
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    UsuarioServiceProvider
+    UsuarioServiceProvider,
+    OportunidadeServiceProvider
   ]
 })
 export class AppModule {}

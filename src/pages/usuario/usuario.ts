@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Alert, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, Alert, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 //Serviços
@@ -8,6 +8,9 @@ import { UsuarioServiceProvider } from '../../providers/usuario-service/usuario-
 
 //Páginas
 import { LoginPage } from '../login/login';
+
+//Modelos
+import { Usuario } from '../../modelos/usuario';
 
 @IonicPage()
 @Component({
@@ -21,12 +24,24 @@ export class UsuarioPage {
    */
   public form: FormGroup;
 
+  /**
+   * Alerta de sucesso
+   */
   private _alertaSucesso: Alert;
 
+  /**
+   * Alerta de erro
+   */
   private _alertaErro: Alert;
 
+  /**
+   * Tela de loading
+   */
+  private _loading: Loading;
+
   constructor(public navCtrl: NavController, private _FB: FormBuilder, private _AUTH: AuthProvider,
-              private _usuarioServiceProvider: UsuarioServiceProvider, private _alertCtrl: AlertController) {
+              private _usuarioServiceProvider: UsuarioServiceProvider, private _alertCtrl: AlertController,
+              private _loadingCtrl: LoadingController) {
     //Define o objeto "FormGroup" usando o FormBuilder do Angular
     this.form = this._FB.group({
       'nome': ['', Validators.required],
@@ -58,26 +73,36 @@ export class UsuarioPage {
     ]
   });
 
+  this._loading = this._loadingCtrl.create({
+    content: 'Cadastrando usuário'
+  })
+
+  this._loading.present()
+
   let email = this.form.controls['email'].value;
   let senha = this.form.controls['senha'].value;
   let nome = this.form.controls['nome'].value;
   let tipoUsuario = this.form.controls['tipoUsuario'].value;
 
-  let usuario = {
-    nome: nome,
-    tipo: tipoUsuario
-  }
-
   this._AUTH.criaNovoUsuario(email, senha)
   .then((auth : any) =>
   {
+
+    let usuario: Usuario = {
+      uid: auth.user.uid,
+      nome: nome,
+      tipo: tipoUsuario
+    }
+
     this._usuarioServiceProvider.adicionaUsuario(usuario)
       .subscribe(
         () => {
+          this._loading.dismiss();
           this._alertaSucesso.setSubTitle('Cadastro Realizado!');
           this._alertaSucesso.present();
         },
         () => {
+          this._loading.dismiss();
           this._alertaErro.setSubTitle('Erro no cadastro de usuário.');
           this._alertaErro.present();
         }
@@ -85,6 +110,7 @@ export class UsuarioPage {
   })
   .catch((error : any) =>
   {
+    this._loading.dismiss();
     this._alertaErro.setSubTitle('Erro no cadastro de usuário.');
     this._alertaErro.present();
   });

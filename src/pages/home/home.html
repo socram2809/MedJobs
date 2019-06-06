@@ -3,12 +3,33 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Oportunidades</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <h3>Ionic Menu Starter</h3>
+<ion-content>
+    <form
+      [formGroup]="form"
+      (ngSubmit)="buscarOportunidades()">
+      <ion-list>
+          <ion-item margin-bottom>
+            <ion-input
+                type="text"
+                formControlName="busca"></ion-input>
+          </ion-item>
   
-    <button ion-button secondary menuToggle>Toggle Menu</button>
-</ion-content>
+          <button
+            ion-button
+            color="primary"
+            text-center
+            block [disabled]="!form.valid">Buscar</button>
+      </ion-list>
+    </form>
+
+    <ion-list>
+      <ion-item *ngFor="let oportunidade of oportunidades">
+          <ion-label>{{oportunidade.titulo}}</ion-label>
+          <ion-label>{{oportunidade.unidade}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
