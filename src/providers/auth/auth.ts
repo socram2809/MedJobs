@@ -102,4 +102,8 @@ export class AuthProvider {
       });
    }
 
+   retornaUsuarioLogado(){
+     return firebase.auth().currentUser
+   }
+
 }

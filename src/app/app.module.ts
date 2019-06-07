@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AuthProvider } from '../providers/auth/auth';
 import { UsuarioServiceProvider } from '../providers/usuario-service/usuario-service';
 import { OportunidadeServiceProvider } from '../providers/oportunidade-service/oportunidade-service';
+import { CandidaturaServiceProvider } from '../providers/candidatura-service/candidatura-service';
 
 //Páginas
 import { MyApp } from './app.component';
@@ -46,7 +47,8 @@ firebase.initializeApp(environment.firebase);
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     UsuarioServiceProvider,
-    OportunidadeServiceProvider
+    OportunidadeServiceProvider,
+    CandidaturaServiceProvider
   ]
 })
 export class AppModule {}

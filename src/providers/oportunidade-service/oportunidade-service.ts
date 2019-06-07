@@ -15,8 +15,11 @@ export class OportunidadeServiceProvider {
   }
 
   filtraOportunidades(busca){
-    //Resolver pendência para busca de oportunidades
     return this._http.get<Oportunidade[]>(this._url+'/oportunidade/busca/'+busca)
+  }
+
+  buscaOportunidade(oportunidade){
+    return this._http.get<Oportunidade>(this._url+'/oportunidade/'+oportunidade)
   }
 
 }

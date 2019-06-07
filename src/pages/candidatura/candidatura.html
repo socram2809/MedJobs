@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Candidaturas</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+      <ion-item *ngFor="let candidatura of candidaturas" (click)="selecionaCandidatura(candidatura)">
+          <ion-label>{{candidatura.oportunidade.titulo}}</ion-label>
+          <ion-label>{{candidatura.oportunidade.unidade}}</ion-label>
+      </ion-item>
+    </ion-list>
+</ion-content>

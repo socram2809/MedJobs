@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detalhes da Oportunidade</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group>
+    <ion-item-divider color="light">
+      OPORTUNIDADE
+    </ion-item-divider>
+
+    <ion-item>Título: {{oportunidade.titulo}}</ion-item>
+    <ion-item>Descrição: {{oportunidade.descricao}}</ion-item>
+    <ion-item>Unidade de Saúde: {{oportunidade.unidade}}</ion-item>
+    <ion-item>Cidade: {{oportunidade.cidade}}</ion-item>
+    <ion-item>Estado: {{oportunidade.estado}}</ion-item>
+  </ion-item-group>
+
+  <button ion-button
+  color="primary"
+  text-center block (click)="candidatarse()">Candidatar-se</button>
+</ion-content>

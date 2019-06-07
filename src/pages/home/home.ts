@@ -86,11 +86,7 @@ export class HomePage {
     this._oportunidadeServiceProvider.listaTodasOportunidades()
       .subscribe(
         (oportunidades) => {
-          this.oportunidades = [];
-          var keys = Object.keys(oportunidades)
-          keys.forEach((key) => {
-            this.oportunidades.push(oportunidades[key]);
-          })
+          this.oportunidades = oportunidades;
           this._loading.dismiss();
         },
         () => {
@@ -99,6 +95,12 @@ export class HomePage {
           this._alerta.present();
         }
       )
+  }
+
+  selecionaOportunidade(oportunidade: Oportunidade){
+    this.navCtrl.push('DetalhesOportunidadePage', {
+      oportunidadeSelecionada: oportunidade
+    });
   }
 
 }

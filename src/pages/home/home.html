@@ -27,7 +27,7 @@
     </form>
 
     <ion-list>
-      <ion-item *ngFor="let oportunidade of oportunidades">
+      <ion-item *ngFor="let oportunidade of oportunidades" (click)="selecionaOportunidade(oportunidade)">
           <ion-label>{{oportunidade.titulo}}</ion-label>
           <ion-label>{{oportunidade.unidade}}</ion-label>
       </ion-item>
