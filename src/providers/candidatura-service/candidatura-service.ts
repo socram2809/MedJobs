@@ -22,4 +22,8 @@ export class CandidaturaServiceProvider {
     return this._http.post(this._url+'/candidatura', candidatura)
   }
 
+  deletaCandidatura(candidatura){
+    return this._http.delete(this._url+'/candidatura/' + candidatura)
+  }
+
 }

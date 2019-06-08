@@ -19,5 +19,10 @@
 
   <button ion-button
   color="primary"
-  text-center block (click)="candidatarse()">Candidatar-se</button>
+  text-center block (click)="candidatarse()" *ngIf="possuiCandidatura == undefined || possuiCandidatura == null">
+  Candidatar-se</button>
+
+  <button ion-button
+  color="primary"
+  text-center block (click)="removerCandidatura()" *ngIf="possuiCandidatura">Remover Candidatura</button>
 </ion-content>
