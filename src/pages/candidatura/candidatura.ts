@@ -4,7 +4,6 @@ import { Candidatura } from '../../modelos/candidatura';
 import { CandidaturaServiceProvider } from '../../providers/candidatura-service/candidatura-service';
 import { OportunidadeServiceProvider } from '../../providers/oportunidade-service/oportunidade-service';
 import { AuthProvider } from '../../providers/auth/auth';
-import { Oportunidade } from '../../modelos/oportunidade';
 
 @IonicPage()
 @Component({

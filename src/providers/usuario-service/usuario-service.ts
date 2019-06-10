@@ -10,6 +10,10 @@ export class UsuarioServiceProvider {
   constructor(private _http: HttpClient) {
   }
 
+  buscaUsuario(usuario){
+    return this._http.get<Usuario>(this._url+'/usuario/'+usuario)
+  }
+
   adicionaUsuario(usuario: Usuario){
     return this._http.post(this._url+'/usuario', usuario)
   }

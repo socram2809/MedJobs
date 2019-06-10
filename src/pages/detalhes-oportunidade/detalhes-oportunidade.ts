@@ -86,19 +86,38 @@ export class DetalhesOportunidadePage {
       oportunidadeCarregada: null
     }
 
-    this._candidaturaServiceProvider.cadastraCandidatura(candidatura)
+    this._candidaturaServiceProvider.buscaCandidaturasMedico(candidatura.medico)
       .subscribe(
-        () => {
-          this._loading.dismiss()
-          this._alertaSucesso.setSubTitle('Candidatura realizada com sucesso!')
-          this._alertaSucesso.present()
-        },
+        (candidaturas) => {
+          var possuiCandidatura = []
+          possuiCandidatura = candidaturas.filter((candidatura) => {
+            return candidatura.medico === this._user.uid && candidatura.oportunidade === this.oportunidade.id
+          })
+          if(possuiCandidatura.length > 0){
+            this._loading.dismiss()
+            this._alertaErro.setSubTitle('A candidatura já existe')
+            this._alertaErro.present()
+          } else {
+            this._candidaturaServiceProvider.cadastraCandidatura(candidatura)
+            .subscribe(
+              () => {
+                this._loading.dismiss()
+                this._alertaSucesso.setSubTitle('Candidatura realizada com sucesso!')
+                this._alertaSucesso.present()
+              },
+              () => {
+                this._loading.dismiss()
+                this._alertaErro.setSubTitle('Erro no cadastro da candidatura')
+                this._alertaErro.present()
+              }
+            )
+          }
+        }, 
         () => {
           this._loading.dismiss()
           this._alertaErro.setSubTitle('Erro no cadastro da candidatura')
           this._alertaErro.present()
-        }
-      )
+        })
   }
 
   removerCandidatura(){
