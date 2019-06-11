@@ -54,7 +54,8 @@ export class UsuarioPage {
   /**
   * Cria usuário usando os métodos "criaNovoUsuario"
   * do serviço "AuthProvider" (fornecendo os FormControls email
-  * e senha do template via o objeto FormBuilder) e o método ""
+  * e senha do template via o objeto FormBuilder) e o método "adicionaUsuario"
+  * do serviço "UsuarioServiceProvider"
   * @method cadastrarUsuario
   * @return {none}
   */
@@ -107,13 +108,14 @@ export class UsuarioPage {
           this._alertaErro.present();
         }
       )
-  })
-  .catch((error : any) =>
-  {
-    this._loading.dismiss();
-    this._alertaErro.setSubTitle('Erro no cadastro de usuário.');
-    this._alertaErro.present();
-  });
-}
+
+    })
+    .catch((error : any) =>
+    {
+      this._loading.dismiss();
+      this._alertaErro.setSubTitle('Erro no cadastro de usuário.');
+      this._alertaErro.present();
+    });
+  }
 
 }

@@ -39,8 +39,11 @@ export class MyApp {
 
     // Popula páginas para a aplicação
     this.pages = [
-      { title: 'Oportunidades', component: HomePage },
+      { title: 'Formação', component: 'FormacaoPage' },
+      { title: 'Experiência', component: 'ExperienciaPage' },
+      { title: 'Habilidades', component: 'HabilidadePage' },
       { title: 'Candidaturas', component: 'CandidaturaPage'},
+      { title: 'Oportunidades', component: HomePage },
       { title: 'Sair', component: LoginPage },
     ];
   }

@@ -8,10 +8,18 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let candidatura of candidaturas" (click)="selecionaCandidatura(candidatura)">
-          <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.titulo}}</ion-label>
-          <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.unidade}}</ion-label>
-      </ion-item>
-    </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        Título
+      </ion-col>
+      <ion-col>
+        Unidade de Saúde
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let candidatura of candidaturas" (click)="selecionaCandidatura(candidatura)">
+      <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.titulo}}</ion-label>
+      <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.unidade}}</ion-label>
+    </ion-row>
+  </ion-grid>
 </ion-content>

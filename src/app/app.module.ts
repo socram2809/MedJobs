@@ -20,6 +20,9 @@ import { UsuarioPage } from '../pages/usuario/usuario';
 //Firebase
 import * as firebase from 'firebase'
 import {environment} from '../environments/environment'
+import { FormacaoServiceProvider } from '../providers/formacao-service/formacao-service';
+import { ExperienciaServiceProvider } from '../providers/experiencia-service/experiencia-service';
+import { HabilidadeServiceProvider } from '../providers/habilidade-service/habilidade-service';
 firebase.initializeApp(environment.firebase);
 
 @NgModule({
@@ -48,7 +51,10 @@ firebase.initializeApp(environment.firebase);
     AuthProvider,
     UsuarioServiceProvider,
     OportunidadeServiceProvider,
-    CandidaturaServiceProvider
+    CandidaturaServiceProvider,
+    FormacaoServiceProvider,
+    ExperienciaServiceProvider,
+    HabilidadeServiceProvider
   ]
 })
 export class AppModule {}
