@@ -43,6 +43,7 @@ export class FormacaoPage {
     //Define o objeto "FormGroup" usando o FormBuilder do Angular
     this.form = this._FB.group({
       'instituicao': ['', Validators.required],
+      'curso': ['', Validators.required],
       'inicio': ['', Validators.required],
       'fim': ['', Validators.required],
       'escolaridade': ['', Validators.required]
@@ -59,9 +60,9 @@ export class FormacaoPage {
       content: 'Atualizando formações'
     })
 
-    this._loading.present()
-
     this._user = this._AUTH.retornaUsuarioLogado()
+
+    this._loading.present()
 
     this.atualizaFormacoes()
   }
@@ -74,11 +75,21 @@ export class FormacaoPage {
   */
  cadastrarFormacao() : void {
 
-  this._loading.setContent('Cadastrando formação')
+  this._alerta = this._alertCtrl.create({
+    title: 'Aviso',
+    buttons: [
+      { text: 'OK'}
+    ]
+  });
+
+  this._loading = this._loadingCtrl.create({
+    content: 'Atualizando formações'
+  })
 
   this._loading.present()
 
   let instituicao = this.form.controls['instituicao'].value;
+  let curso = this.form.controls['curso'].value;
   let inicio = this.form.controls['inicio'].value;
   let fim = this.form.controls['fim'].value;
   let escolaridade = this.form.controls['escolaridade'].value;
@@ -86,6 +97,7 @@ export class FormacaoPage {
   let formacao: Formacao = {
     id: null,
     instituicao: instituicao,
+    curso: curso,
     inicio: inicio,
     fim: fim,
     escolaridade: escolaridade,
@@ -95,11 +107,6 @@ export class FormacaoPage {
   this._formacaoServiceProvider.cadastraFormacao(formacao)
     .subscribe(
       () => {
-        this._loading.dismiss()
-        this._alerta.setSubTitle('Formação cadastrada com sucesso!')
-        this._alerta.present()
-        this._loading.setContent('Atualizando formações')
-        this._loading.present()
         this.atualizaFormacoes()
       },
       () => {
@@ -124,6 +131,33 @@ export class FormacaoPage {
         () => {
           this._loading.dismiss()
           this._alerta.setSubTitle('Erro na atualização das formações!')
+          this._alerta.present()
+        }
+      )
+  }
+
+  removerFormacao(formacao: Formacao){
+    this._alerta = this._alertCtrl.create({
+      title: 'Aviso',
+      buttons: [
+        { text: 'OK'}
+      ]
+    });
+
+    this._loading = this._loadingCtrl.create({
+      content: 'Removendo formação'
+    })
+  
+    this._loading.present()
+
+    this._formacaoServiceProvider.deletaFormacao(formacao.id)
+      .subscribe(
+        () => {
+          this.atualizaFormacoes()
+        },
+        () => {
+          this._loading.dismiss()
+          this._alerta.setSubTitle('Erro na remoção da formação!')
           this._alerta.present()
         }
       )

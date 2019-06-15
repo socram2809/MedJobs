@@ -21,13 +21,20 @@
         </ion-item>
 
         <ion-item margin-bottom>
+          <ion-label>Curso</ion-label>
+          <ion-input
+              type="text"
+              formControlName="curso"></ion-input>
+        </ion-item>
+
+        <ion-item margin-bottom>
           <ion-label>Início</ion-label>
-          <ion-datetime display-format="DD/MM/YYYY"></ion-datetime>
+          <ion-datetime formControlName="inicio" display-format="DD/MM/YYYY"></ion-datetime>
         </ion-item>
 
         <ion-item margin-bottom>
           <ion-label>Fim</ion-label>
-          <ion-datetime display-format="DD/MM/YYYY"></ion-datetime>
+          <ion-datetime formControlName="fim" display-format="DD/MM/YYYY"></ion-datetime>
         </ion-item>
 
         <ion-item margin-bottom>
@@ -60,11 +67,20 @@
         Fim
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let formacao of formacoes">
-        <ion-col>{{formacao.instituicao}}</ion-col>
-        <ion-col>{{formacao.inicio}}</ion-col>
-        <ion-col>{{formacao.fim}}</ion-col>
-    </ion-row>
+    <ion-list>
+      <ion-row *ngFor="let formacao of formacoes">
+        <ion-item-sliding>
+          <ion-item>
+              <ion-col>{{formacao.instituicao}}</ion-col>
+              <ion-col>{{formacao.inicio}}</ion-col>
+              <ion-col>{{formacao.fim}}</ion-col>
+          </ion-item>
+          <ion-item-options side="right">
+              <button ion-button (click)="removerFormacao(formacao)">Remover</button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-row>
+    </ion-list>
   </ion-grid>
 
 </ion-content>
