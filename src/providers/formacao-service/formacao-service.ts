@@ -26,4 +26,8 @@ export class FormacaoServiceProvider {
     return this._http.delete(this._url+'/formacao/' + formacao)
   }
 
+  editaFormacao(formacao: Formacao){
+    return this._http.put(this._url+'/formacao', formacao)
+  }
+
 }

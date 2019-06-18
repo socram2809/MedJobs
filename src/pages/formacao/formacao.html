@@ -11,7 +11,7 @@
 
     <form
     [formGroup]="form"
-    (ngSubmit)="cadastrarFormacao()">
+    (ngSubmit)="isEdicao ? editarFormacao() : cadastrarFormacao()">
     <ion-list>
         <ion-item margin-bottom>
           <ion-label>Instituição</ion-label>
@@ -51,7 +51,15 @@
           ion-button
           color="primary"
           text-center
-          block [disabled]="!form.valid">Inserir Formação</button>
+          block [disabled]="!form.valid"
+          *ngIf="!isEdicao">Inserir Formação</button>
+
+          <button
+          ion-button
+          color="primary"
+          text-center
+          block [disabled]="!form.valid"
+          *ngIf="isEdicao">Editar Formação</button>
     </ion-list>
   </form>
 
@@ -76,7 +84,8 @@
               <ion-col>{{formacao.fim}}</ion-col>
           </ion-item>
           <ion-item-options side="right">
-              <button ion-button (click)="removerFormacao(formacao)">Remover</button>
+              <button ion-button color="primary" (click)="selecionaFormacao(formacao)">Editar</button>
+              <button ion-button color="danger" (click)="removerFormacao(formacao)">Remover</button>
           </ion-item-options>
         </ion-item-sliding>
       </ion-row>
