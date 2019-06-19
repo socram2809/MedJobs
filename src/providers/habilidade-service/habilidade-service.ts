@@ -26,4 +26,8 @@ export class HabilidadeServiceProvider {
     return this._http.delete(this._url+'/habilidade/' + habilidade)
   }
 
+  editaHabilidade(habilidade: Habilidade){
+    return this._http.put(this._url+'/habilidade', habilidade)
+  }
+
 }

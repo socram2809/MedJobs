@@ -26,4 +26,8 @@ export class ExperienciaServiceProvider {
     return this._http.delete(this._url+'/experiencia/' + experiencia)
   }
 
+  editaExperiencia(experiencia: Experiencia){
+    return this._http.put(this._url+'/experiencia', experiencia)
+  }
+
 }

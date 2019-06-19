@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Vagas</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content>
+  
+      <form
+      [formGroup]="form"
+      (ngSubmit)="isEdicao ? editarVaga() : cadastrarVaga()">
+      <ion-list>
+          <ion-item margin-bottom>
+            <ion-label>Título</ion-label>
+            <ion-input
+                type="text"
+                formControlName="titulo"></ion-input>
+          </ion-item>
+
+          <ion-item margin-bottom>
+              <ion-label>Descrição</ion-label>
+              <ion-input
+                  type="text"
+                  formControlName="descricao"></ion-input>
+            </ion-item>
+
+          <ion-item margin-bottom>
+            <ion-label>Cidade</ion-label>
+            <ion-input
+                type="text"
+                formControlName="cidade"></ion-input>
+          </ion-item>
+
+          <ion-item margin-bottom>
+            <ion-label>Estado</ion-label>
+            <ion-input
+                type="text"
+                formControlName="estado"></ion-input>
+          </ion-item>
+
+          <ion-item margin-bottom>
+            <ion-label>Unidade de Saúde</ion-label>
+            <ion-input
+                type="text"
+                formControlName="unidade"></ion-input>
+          </ion-item>
+  
+          <button
+            ion-button
+            color="primary"
+            text-center
+            block [disabled]="!form.valid"
+            *ngIf="!isEdicao">Inserir Vaga</button>
+  
+            <button
+            ion-button
+            color="primary"
+            text-center
+            block [disabled]="!form.valid"
+            *ngIf="isEdicao">Editar Vaga</button>
+      </ion-list>
+    </form>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Título
+        </ion-col>
+        <ion-col>
+          Unidade
+        </ion-col>
+      </ion-row>
+      <ion-list>
+        <ion-row *ngFor="let vaga of vagas">
+          <ion-item-sliding>
+            <ion-item>
+                <ion-col>{{vaga.titulo}}</ion-col>
+                <ion-col>{{vaga.unidade}}</ion-col>
+            </ion-item>
+            <ion-item-options side="right">
+                <button ion-button color="primary" (click)="selecionaVaga(vaga)">Editar</button>
+                <button ion-button color="danger" (click)="removerVaga(vaga)">Remover</button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-row>
+      </ion-list>
+    </ion-grid>
+  
+  </ion-content>

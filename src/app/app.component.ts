@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Alert, AlertController } from 'ionic-angular';
+import { Nav, Platform, Alert, AlertController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -28,8 +28,8 @@ export class MyApp {
 
   private _alerta: Alert;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private _AUTH: AuthProvider,
-              private _alertCtrl: AlertController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, 
+              private _AUTH: AuthProvider, private _alertCtrl: AlertController, public events: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -37,15 +37,25 @@ export class MyApp {
       splashScreen.hide();
     });
 
-    // Popula páginas para a aplicação
-    this.pages = [
-      { title: 'Formação', component: 'FormacaoPage' },
-      { title: 'Experiência', component: 'ExperienciaPage' },
-      { title: 'Habilidades', component: 'HabilidadePage' },
-      { title: 'Candidaturas', component: 'CandidaturaPage'},
-      { title: 'Oportunidades', component: HomePage },
-      { title: 'Sair', component: LoginPage },
-    ];
+    //Evento ativado quando um usuário médico loga
+    this.events.subscribe('usuarioMedico', () => {
+      this.pages = [
+        { title: 'Formação', component: 'FormacaoPage' },
+        { title: 'Experiência', component: 'ExperienciaPage' },
+        { title: 'Habilidades', component: 'HabilidadePage' },
+        { title: 'Candidaturas', component: 'CandidaturaPage'},
+        { title: 'Oportunidades', component: HomePage },
+        { title: 'Sair', component: LoginPage },
+      ];
+    })
+
+    //Evento ativado quando um usuário contratante loga
+    this.events.subscribe('usuarioContratante', () => {
+      this.pages = [
+        { title: 'Vagas', component: 'VagaPage' },
+        { title: 'Sair', component: LoginPage },
+      ];
+    })
   }
 
   /**

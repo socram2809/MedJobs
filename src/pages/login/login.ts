@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, Alert, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, Alert, AlertController, LoadingController, Loading, Events } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 //Serviços
@@ -8,6 +8,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 //Páginas
 import { HomePage } from '../home/home';
 import { UsuarioPage } from '../usuario/usuario';
+import { UsuarioServiceProvider } from '../../providers/usuario-service/usuario-service';
+import { Usuario } from '../../modelos/usuario';
 
 @IonicPage()
 @Component({
@@ -31,8 +33,19 @@ export class LoginPage {
    */
   private _loading: Loading;
 
+  /**
+   * Usuário logado
+   */
+  private _user;
+  
+  /**
+   * Dados do Usuário
+   */
+  private _dadosUsuario: Usuario;
+
   constructor(public navCtrl: NavController, private _FB: FormBuilder, private _AUTH: AuthProvider,
-              private _alertCtrl: AlertController, private _loadingCtrl: LoadingController) {
+              private _alertCtrl: AlertController, private _loadingCtrl: LoadingController,
+              private _usuarioServiceProvider: UsuarioServiceProvider, public events: Events) {
     //Define o objeto "FormGroup" usando o FormBuilder do Angular
     this.form = this._FB.group({
       'email': ['', Validators.required],
@@ -67,8 +80,25 @@ export class LoginPage {
     this._AUTH.loginWithEmailAndPassword(email, senha)
     .then((auth : any) =>
     {
-      this._loading.dismiss();
-      this.navCtrl.setRoot(HomePage);
+      this._user = this._AUTH.retornaUsuarioLogado()
+      this._usuarioServiceProvider.buscaUsuario(this._user.uid)
+        .subscribe(
+          (usuario) => {
+            this._dadosUsuario = usuario
+            if(usuario.tipo === 'Médico'){
+              this.events.publish('usuarioMedico')
+            }else{
+              this.events.publish('usuarioContratante')
+            }
+            this._loading.dismiss()
+            this.navCtrl.setRoot(HomePage)
+          },
+          () => {
+            this._loading.dismiss();
+            this._alerta.setSubTitle('Erro na busca de usuário.');
+            this._alerta.present();
+          }
+        )
     })
     .catch((error : any) =>
     {
