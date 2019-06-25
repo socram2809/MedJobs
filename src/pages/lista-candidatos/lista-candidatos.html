@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Lista de Candidatos</ion-title>
+  </ion-navbar>
+</ion-header>
+  
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        Nome
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let candidatura of candidaturas" (click)="selecionarCandidato(candidatura)">
+      <ion-col *ngIf="candidatura.medicoCarregado">{{candidatura.medicoCarregado.nome}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

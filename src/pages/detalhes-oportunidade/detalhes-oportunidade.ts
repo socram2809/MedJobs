@@ -82,6 +82,8 @@ export class DetalhesOportunidadePage {
     let candidatura: Candidatura = {
       id: null,
       medico: this._user.uid,
+      medicoCarregado: null,
+      aprovado: false,
       oportunidade: this.oportunidade.id,
       oportunidadeCarregada: null
     }

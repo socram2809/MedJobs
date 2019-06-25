@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Seleção</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Título
+        </ion-col>
+        <ion-col>
+          Unidade de Saúde
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let oportunidade of oportunidades" (click)="selecionaOportunidade(oportunidade)">
+          <ion-col>{{oportunidade.titulo}}</ion-col>
+          <ion-col>{{oportunidade.unidade}}</ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>

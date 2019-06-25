@@ -22,4 +22,20 @@ export class OportunidadeServiceProvider {
     return this._http.get<Oportunidade>(this._url+'/oportunidade/'+oportunidade)
   }
 
+  buscaOportunidadesContratante(contratante){
+    return this._http.get<Oportunidade[]>(this._url+'/oportunidade/contratante/'+contratante)
+  }
+
+  cadastraOportunidade(oportunidade: Oportunidade){
+    return this._http.post(this._url+'/oportunidade', oportunidade)
+  }
+
+  deletaOportunidade(oportunidade){
+    return this._http.delete(this._url+'/oportunidade/' + oportunidade)
+  }
+
+  editaOportunidade(oportunidade: Oportunidade){
+    return this._http.put(this._url+'/oportunidade', oportunidade)
+  }
+
 }

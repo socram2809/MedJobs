@@ -18,8 +18,11 @@
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let candidatura of candidaturas" (click)="selecionaCandidatura(candidatura)">
-      <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.titulo}}</ion-label>
-      <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.unidade}}</ion-label>
+      <ion-item [color]="candidatura.aprovado ? 'secondary' : 'light'">
+        <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.titulo}}</ion-label>
+        <ion-label *ngIf="candidatura.oportunidadeCarregada">{{candidatura.oportunidadeCarregada.unidade}}</ion-label>
+        <ion-label *ngIf="candidatura.aprovado">APROVADO</ion-label>
+      </ion-item>
     </ion-row>
   </ion-grid>
 </ion-content>

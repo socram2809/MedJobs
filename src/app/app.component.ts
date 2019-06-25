@@ -52,7 +52,9 @@ export class MyApp {
     //Evento ativado quando um usuário contratante loga
     this.events.subscribe('usuarioContratante', () => {
       this.pages = [
+        { title: 'Oportunidades', component: HomePage },
         { title: 'Vagas', component: 'VagaPage' },
+        { title: 'Seleção', component: 'SelecaoPage'},
         { title: 'Sair', component: LoginPage },
       ];
     })

@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Detalhes do Candidato</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group>
+    <ion-item-divider color="light">
+      CANDIDATO
+    </ion-item-divider>
+
+    <ion-item>Nome: {{candidatura.medicoCarregado.nome}}</ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">
+      FORMAÇÃO
+    </ion-item-divider>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Instituição
+        </ion-col>
+        <ion-col>
+          Início
+        </ion-col>
+        <ion-col>
+          Fim
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let formacao of formacoes">
+        <ion-col>{{formacao.instituicao}}</ion-col>
+        <ion-col>{{formacao.inicio}}</ion-col>
+        <ion-col>{{formacao.fim}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">
+      EXPERIÊNCIA
+    </ion-item-divider>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Empresa
+        </ion-col>
+        <ion-col>
+          Início
+        </ion-col>
+        <ion-col>
+          Fim
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let experiencia of experiencias">
+        <ion-col>{{experiencia.empresa}}</ion-col>
+        <ion-col>{{experiencia.inicio}}</ion-col>
+        <ion-col>{{experiencia.fim}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light">
+      HABILIDADES
+    </ion-item-divider>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          Descrição
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let habilidade of habilidades">
+        <ion-col>{{habilidade.descricao}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item-group>
+
+  <button ion-button
+  color="primary"
+  text-center block (click)="aprovarCandidato(candidatura)">
+  Aprovar Candidato</button>
+</ion-content>
