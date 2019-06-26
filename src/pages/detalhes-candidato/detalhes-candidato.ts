@@ -8,6 +8,7 @@ import { Experiencia } from '../../modelos/experiencia';
 import { Habilidade } from '../../modelos/habilidade';
 import { Formacao } from '../../modelos/formacao';
 import { CandidaturaServiceProvider } from '../../providers/candidatura-service/candidatura-service';
+import { Oportunidade } from '../../modelos/oportunidade';
 
 @IonicPage()
 @Component({
@@ -51,6 +52,11 @@ export class DetalhesCandidatoPage {
    */
   private _alerta: Alert;
 
+  /**
+   * Oportunidade carregada
+   */
+  private _oportunidade: Oportunidade;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private _alertaCtrl: AlertController,
               private _loadingCtrl: LoadingController,
@@ -58,7 +64,8 @@ export class DetalhesCandidatoPage {
               private _experienciaServiceProvider: ExperienciaServiceProvider,
               private _formacaoServiceProvider: FormacaoServiceProvider,
               private _habilidadeServiceProvider: HabilidadeServiceProvider) {
-    this.candidatura = this.navParams['candidatura']
+    this.candidatura = this.navParams.get('candidatura')
+    this._oportunidade = this.navParams.get('oportunidade')
   }
 
   ionViewDidLoad(){
@@ -118,7 +125,11 @@ export class DetalhesCandidatoPage {
     this._alerta = this._alertaCtrl.create({
       title: 'Aviso',
       buttons: [
-        { text: 'OK'}
+        { 
+          text: 'OK', 
+          handler: () => {this.navCtrl.setRoot('ListaCandidatosPage', 
+          { oportunidade : this._oportunidade})}
+        }
       ]
     })
 

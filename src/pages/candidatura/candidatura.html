@@ -16,6 +16,8 @@
       <ion-col>
         Unidade de Saúde
       </ion-col>
+      <ion-col>
+      </ion-col>
     </ion-row>
     <ion-row *ngFor="let candidatura of candidaturas" (click)="selecionaCandidatura(candidatura)">
       <ion-item [color]="candidatura.aprovado ? 'secondary' : 'light'">

@@ -41,7 +41,6 @@ export class ListaCandidatosPage {
   }
 
   ionViewDidLoad(){
-
     this._alerta = this._alertCtrl.create({
       title: 'Aviso',
       buttons: [
@@ -87,7 +86,8 @@ export class ListaCandidatosPage {
 
   selecionarCandidato(candidatura: Candidatura){
     this.navCtrl.push('DetalhesCandidatoPage', {
-      candidatura: candidatura
+      candidatura: candidatura,
+      oportunidade: this._oportunidade
     });
   }
 
